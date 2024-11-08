@@ -11,8 +11,8 @@ status_check () {
 }
 
 print_head () {
-  echo -e "\e[1m $1 \e[0m"
-}
+  echo -e "\e[1m  $1 \e[0m"
+  }
 
 user1_check () {
   print_head "adding user"
@@ -23,7 +23,7 @@ user1_check () {
 }
 
 NODEJS() {
-  print_head "Disbable nodejs"
+  print_head "Disable nodejs"
   dnf module disable nodejs -y
   status_check
 
