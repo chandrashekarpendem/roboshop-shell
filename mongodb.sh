@@ -9,7 +9,7 @@ dnf install mongodb-org -y $>>$LOG
 status_check
 
 print_head " changing port to 0.0.0.0"
-sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf $>>$LOG
+sed -i -e 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf $>>$LOG
 status_check
 
 print_head " enabling mongodb"
