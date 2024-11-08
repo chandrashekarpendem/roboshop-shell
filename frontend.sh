@@ -1,24 +1,34 @@
-script_location=$(pwd)
-echo "\e[35m installing Nginx\e[0m"
-dnf install nginx -y
+source common.sh 
 
-echo "\e[35m Remove older default nginx content\e[0m"
-rm -rf /usr/share/nginx/html/*
 
-echo "\e[35m Download frontend content\e[0m"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+print_head" installing Nginx"
+dnf install nginx -y &>>$LOG
+status_check
 
-echo "\e[35m change to nginx path\e[0m"
-cd /usr/share/nginx/html
+print_head" Remove older default nginx content"
+rm -rf /usr/share/nginx/html/*  &>>$LOG
+status_check
 
-echo "\e[35m unzipping frontend html content\e[0m"
-unzip /tmp/frontend.zip
+print_head" Download frontend content"
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip  &>>$LOG
+status_check
 
-echo "\e[35m copying the configuration file\e[0m"
-cp $script_location/files/roboshop.conf /etc/nginx/default.d/roboshop.conf
+print_head" change to nginx path"
+cd /usr/share/nginx/html  &>>$LOG
+status_check
 
-echo "\e[35m enabling Nginx\e[0m"
-systemctl enable nginx
+print_head" unzipping frontend html content"
+unzip /tmp/frontend.zip  &>>$LOG
+status_check
 
-echo "\e[35m restarting Nginx\e[0m"
-systemctl restart nginx
+print_head" copying the configuration file"
+cp $script_location/files/roboshop.conf /etc/nginx/default.d/roboshop.conf  &>>$LOG
+status_check
+
+print_head" enabling Nginx"
+systemctl enable nginx  &>>$LOG
+status_check
+
+print_head" restarting Nginx"
+systemctl restart nginx  &>>$LOG
+status_check
