@@ -100,7 +100,7 @@ schema_load () {
 
     if [ ${schema_type} == "mongo" ]; then
       print_head  " copying repo file "
-      cp ${set_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
+      cp ${set_location}/files/mongod.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
       status_check
 
       print_head  " installing mongod client "
