@@ -90,7 +90,7 @@ systemd () {
   status_check
 
   print_head " start $component service"
-  systemctl start $component &>>$LOG
+  systemctl restart $component &>>$LOG
   status_check
 
 }
