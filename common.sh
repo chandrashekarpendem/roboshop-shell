@@ -12,7 +12,7 @@ status_check () {
 
 print_head () {
   echo -e "\e[1m  $1 \e[0m"
-  }
+}
 
 user1_check () {
   print_head "adding user"
@@ -40,7 +40,7 @@ NODEJS() {
   print_head "node packages installing"
   cd /app
   npm install &>>${LOG}
-  condition_check
+  status_check
 
   systemd
 
@@ -99,26 +99,26 @@ schema_load () {
     if [ ${schema_type} == "mongo" ]; then
       print_head " copying repo file "
       cp ${set_location}/files/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
-      condition_check
+      status_check
 
       print_head " installing mongod client "
       yum install mongodb-org-shell -y  &>>${LOG}
-      condition_check
+      status_check
 
       print_head " loading mongod "
       mongo  --host mongodb-dev.chandrap.shop </app/schema/${component}.js &>>${LOG}
-      condition_check
+      status_check
     fi
 
       if [ ${schema_type} == "mysql" ]; then
 
          print_head " installing mysql  "
          yum install mysql -y   &>>${LOG}
-         condition_check
+         status_check
 
          print_head " loading mysql "
          mysql --host mysql-dev.chandrap.shop -uroot -p${root_mysql_password} </app/schema/shipping.sql &>>${LOG}
-         condition_check
+         status_check
       fi
    fi
 }
@@ -126,18 +126,18 @@ schema_load () {
 maven () {
  print_head " installing maven "
  yum install maven -y &>>${LOG}
- condition_check
+ status_check
 
  app_preq
 
  print_head " clean package command ${component} "
  cd /app
  mvn clean package &>>${LOG}
- condition_check
+ status_check
 
  print_head "moving ${component} files from target folder to app directory "
  mv target/shipping-1.0.jar  shipping.jar &>>${LOG}
- condition_check
+ status_check
 
  systemd
 
@@ -148,18 +148,18 @@ maven () {
 python () {
   print_head " installing python "
   yum install python36 gcc python3-devel -y &>>${LOG}
-  condition_check
+  status_check
 
  app_preq
 
  print_head " installing python requirements "
  cd /app
  pip3.6 install -r requirements.txt &>>${LOG}
- condition_check
+ status_check
 
  print_head " update passwords in ${component} file"
  sed -i -e "s/roboshop_rabbitmq_password/${roboshop_rabbitmq_password}/"  ${set_location}/files/${component}.service &>>${LOG}
- condition_check
+ status_check
 
  systemd
 }
@@ -168,17 +168,21 @@ GOLANG() {
 
  print_head " installing golang "
  dnf install golang -y $>>$LOG
+ status_check
 
  app_preq
 
- print_head " intialize dispatch"
+ print_head " inti dispatch"
  go mod init dispatch $>>$LOG
+ status_check
 
  print_head " get go "
  go get $>>$LOG
+ status_check
 
  print_head " build go "
  go build $>>$LOG
+ status_check
 
  systemd
 }
