@@ -160,7 +160,7 @@ python () {
  status_check
 
  print_head  " update passwords in ${component} file"
- sed -i -e "s/roboshop_rabbitmq_password/${roboshop_rabbitmq_password}/"  ${script_location }/files/${component}.service &>>${LOG}
+ sed -i -e "s/roboshop_rabbitmq_password/${roboshop_rabbitmq_password}/"  ${script_location}/files/${component}.service &>>${LOG}
  status_check
 
  systemd
