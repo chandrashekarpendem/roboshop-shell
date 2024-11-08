@@ -100,7 +100,7 @@ schema_load () {
 
     if [ ${schema_type} == "mongo" ]; then
       print_head  " copying repo file "
-      cp ${set_location}/files/mongod.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
+      cp ${script_location }/files/mongod.repo /etc/yum.repos.d/mongo.repo &>>${LOG}
       status_check
 
       print_head  " installing mongod client "
@@ -160,7 +160,7 @@ python () {
  status_check
 
  print_head  " update passwords in ${component} file"
- sed -i -e "s/roboshop_rabbitmq_password/${roboshop_rabbitmq_password}/"  ${set_location}/files/${component}.service &>>${LOG}
+ sed -i -e "s/roboshop_rabbitmq_password/${roboshop_rabbitmq_password}/"  ${script_location }/files/${component}.service &>>${LOG}
  status_check
 
  systemd
