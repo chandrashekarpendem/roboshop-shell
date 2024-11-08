@@ -12,14 +12,14 @@ status_check () {
 
 print_head () {
   echo -e "\e[1m $1 \e[0m"
-  }
+}
 
 user1_check () {
-print_head "adding user"
-id roboshop
-if [ $? -ne 0 ]; then
-  useradd roboshop
-fi
+  print_head "adding user"
+  id roboshop
+  if [ $? -ne 0 ]; then
+    useradd roboshop
+  fi
 }
 
 NODEJS() {
@@ -75,21 +75,21 @@ app_preq() {
 
 systemd () {
 
-print_head" copy the catalogue service files"
-cp $script_location/files/$component.service /etc/systemd/system/$component.service $>>$LOG
-status_check
+  print_head" copy the catalogue service files"
+  cp $script_location/files/$component.service /etc/systemd/system/$component.service $>>$LOG
+  status_check
 
-print_head" daemon reload"
-systemctl daemon-reload $>>$LOG
-status_check
+  print_head" daemon reload"
+  systemctl daemon-reload $>>$LOG
+  status_check
 
-print_head" enable $component service"
-systemctl enable $component $>>$LOG
-status_check
+  print_head" enable $component service"
+  systemctl enable $component $>>$LOG
+  status_check
 
-print_head" start $component service"
-systemctl start $component $>>$LOG
-status_check
+  print_head" start $component service"
+  systemctl start $component $>>$LOG
+  status_check
 
 }
 
@@ -180,5 +180,5 @@ GOLANG() {
  print_head " build go "
  go build $>>$LOG
 
-systemd
+ systemd
 }
