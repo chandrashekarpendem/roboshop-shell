@@ -26,15 +26,15 @@ user1_check () {
 
 NODEJS() {
   print_head "Disable nodejs"
-  dnf module disable nodejs -y
+  dnf module disable nodejs -y &>>${LOG}
   status_check
 
   print_head" enable nodejs 18"
-  dnf module enable nodejs:18 -y
+  dnf module enable nodejs:18 -y &>>${LOG}
   status_check
 
   print_head" install nodejs"
-  dnf install nodejs -y
+  dnf install nodejs -y &>>${LOG}
   status_check
 
   app_preq
@@ -52,24 +52,24 @@ NODEJS() {
 
 app_preq() {
 
-  user1_check $>>$LOG
+  user1_check &>>$LOG
 
   print_head" create app directory"
-  mkdir -p /app $>>$LOG
+  mkdir -p /app &>>$LOG
   status_check
 
   print_head" download catalogue content"
-  curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip $>>$LOG
+  curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>$LOG
   status_check
 
   print_head" remove previous app directory content"
-  rm -rf /app/* $>>$LOG
+  rm -rf /app/* &>>$LOG
   cd /app
   status_check
 
 
   print_head" extract catalogue content"
-  unzip /tmp/$component.zip $>>$LOG
+  unzip /tmp/$component.zip &>>$LOG
   cd /app
   status_check
 
@@ -78,19 +78,19 @@ app_preq() {
 systemd () {
 
   print_head" copy the catalogue service files"
-  cp $script_location/files/$component.service /etc/systemd/system/$component.service $>>$LOG
+  cp $script_location/files/$component.service /etc/systemd/system/$component.service &>>$LOG
   status_check
 
   print_head" daemon reload"
-  systemctl daemon-reload $>>$LOG
+  systemctl daemon-reload &>>$LOG
   status_check
 
   print_head" enable $component service"
-  systemctl enable $component $>>$LOG
+  systemctl enable $component &>>$LOG
   status_check
 
   print_head" start $component service"
-  systemctl start $component $>>$LOG
+  systemctl start $component &>>$LOG
   status_check
 
 }
@@ -169,21 +169,21 @@ python () {
 GOLANG() {
 
  print_head " installing golang "
- dnf install golang -y $>>$LOG
+ dnf install golang -y &>>$LOG
  status_check
 
  app_preq
 
  print_head " inti dispatch"
- go mod init dispatch $>>$LOG
+ go mod init dispatch &>>$LOG
  status_check
 
  print_head " get go "
- go get $>>$LOG
+ go get &>>$LOG
  status_check
 
  print_head " build go "
- go build $>>$LOG
+ go build &>>$LOG
  status_check
 
  systemd
