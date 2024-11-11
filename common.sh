@@ -58,7 +58,7 @@ app_preq() {
   mkdir -p /app &>>$LOG
   status_check
 
-  print_head " download catalogue content"
+  print_head " download $component content"
   curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>$LOG
   status_check
 
@@ -77,7 +77,7 @@ app_preq() {
 
 systemd () {
 
-  print_head " copy the catalogue service files"
+  print_head " copy the $component service file"
   cp $script_location/files/$component.service /etc/systemd/system/$component.service &>>$LOG
   status_check
 
