@@ -45,7 +45,7 @@ if [ -z "${SGID}" ]; then
 fi
 
 
-for component in catalogue frontend mongodb; do
+for component in redis user cart; do
   COMPONENT="${component}-dev"
   create_ec2
 done
