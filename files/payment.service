@@ -5,9 +5,9 @@ Description=Payment Service
 User=root
 WorkingDirectory=/app
 Environment=CART_HOST=cart-dev.chandrap.shop
-Environment=CART_PORT=8080
+Environment=CART_PORT=80
 Environment=USER_HOST=user-dev.chandrap.shop
-Environment=USER_PORT=8080
+Environment=USER_PORT=80
 Environment=AMQP_HOST=rabbitmq-dev.chandrap.shop
 Environment=AMQP_USER=roboshop
 Environment=AMQP_PASS=roboshop_rabbitmq_password
