@@ -13,7 +13,7 @@ create_ec2() {
   echo -e "\nset-hostname ${COMPONENT}" >>/tmp/user-data
   PRIVATE_IP=$(aws ec2 run-instances \
       --image-id ${AMI_ID} \
-      --instance-type t3.small \
+      --instance-type t3.medium \
       --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}, {Key=Monitor,Value=yes}]" "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]"  \
       --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}"\
       --security-group-ids ${SGID} \
