@@ -45,7 +45,7 @@ if [ -z "${SGID}" ]; then
 fi
 
 
-for component in prometheus  ; do
+for component in prometheus-server  ; do
   COMPONENT="${component}-dev"
   create_ec2
 done
